@@ -3,31 +3,14 @@
 # Overview
 Welcome to the Hoa Phat Group Stock Market Data Analysis project repository. This project focuses on the comprehensive analysis of historical stock performance for Hoa Phat Group Stock The goal is to provide valuable insights to traders and investors, aiding them in making informed decisions.
 
-# Project Structure
-The project is structured as follows:
-
-1_EDA_DataMining: This directory contains the exploratory data analysis (EDA) and data mining scripts, handled by the team lead, Bình.
-
-2_Dashboard: The dashboard section, managed by Hoàn, involves the creation of visually appealing and informative dashboards using Power BI.
-
-3_Model_Price_Volume_TS_Decomp: Việt is responsible for implementing time series models for price and volume forecasting, as well as decomposition analysis.
-
-4_Strategy_Prescriptive_Model: Khánh oversees the development of the prescriptive model, providing insights into trading strategies.
-
-5_Report: This directory contains the report summarizing key findings, interpretations, and practical implications.
-
-Data Sources
-Microsoft Stock Data
-Amazon Stock Data
-INTEL Stock Data
 # Setup Instructions
 1. Clone this repository to your local machine:
 
-git clone (https://github.com/khanhha1005/Group23_Business_Analytics/tree/main)
+  git clone (https://github.com/khanhha1005/Group23_Business_Analytics/tree/main)
 
 3. Install the required dependencies:
 
-pip install -r requirements.txt
+  pip install -r requirements.txt
 
 5. Navigate to the relevant directory for the analysis you want to explore.
 6. Execute the scripts or notebooks using your preferred environment (Python, Jupyter, etc.).
