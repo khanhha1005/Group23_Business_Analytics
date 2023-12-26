@@ -69,7 +69,7 @@ class StockCrawler(object):
     ) -> Dict:
         """
         Make an asynchronous HTTP GET request to the specified Parameter.
-        API url -> https://query1.finance.yahoo.com/v8/finance/chart/AMZN
+        API url -> https://dchart-api.vndirect.com.vn/dchart/history
         ----------------
         Args:
             parameter: Dict[str]

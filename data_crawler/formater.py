@@ -31,7 +31,7 @@ def process_json_file(file_path: str) -> List[Dict]:
             'high': data['h'][i],
             'low': data['l'][i],
             'volume': data['v'][i],
-            # 'amount': hour_data[6],
+            'changes': (data['c'][i] - data['o'][i]) / data['o'][i],
         }
         result.append(res)
     return result
@@ -55,7 +55,8 @@ def convert_to_parquet(data: List, raw_data_dir: str) -> None:
         columns=[
             'timestamp', 'open', 
             'high', 'low', 
-            'close', 'volume'
+            'close', 'volume',
+            'changes'
         ]
     )
     df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
