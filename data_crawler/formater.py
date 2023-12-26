@@ -1,6 +1,10 @@
+import os
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), ".."))
+
 import pandas as pd
 import json
-import os
 import shutil
 from pathlib import Path
 from typing import List, Dict

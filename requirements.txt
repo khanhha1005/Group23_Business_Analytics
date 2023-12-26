@@ -2,4 +2,6 @@ asyncio
 aiohttp
 pyodbc 
 pandas
+pyarrow
 python-dotenv
+apache-airflow==2.8.0
