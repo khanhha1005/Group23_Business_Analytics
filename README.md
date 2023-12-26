@@ -20,20 +20,13 @@ Data Sources
 Microsoft Stock Data
 Amazon Stock Data
 INTEL Stock Data
-Setup Instructions
-Clone this repository to your local machine:
-
-bash
-Copy code
-git clone https://github.com/your-username/stock-market-analysis.git
-Install the required dependencies:
-
-bash
-Copy code
+# Setup Instructions
+1. Clone this repository to your local machine:
+git clone (https://github.com/khanhha1005/Group23_Business_Analytics/tree/main)
+2. Install the required dependencies:
 pip install -r requirements.txt
-Navigate to the relevant directory for the analysis you want to explore.
-
-Execute the scripts or notebooks using your preferred environment (Python, Jupyter, etc.).
+3. Navigate to the relevant directory for the analysis you want to explore.
+4. Execute the scripts or notebooks using your preferred environment (Python, Jupyter, etc.).
 
 # Contributing
 We welcome contributions to enhance and expand this project. If you're interested in contributing, please follow these guidelines:
@@ -45,6 +38,6 @@ We welcome contributions to enhance and expand this project. If you're intereste
 This project is licensed under the MIT License. Feel free to use, modify, and distribute the code.
 
 # Acknowledgments
-Thanks to Kaggle for providing the datasets used in this analysis.
+Thanks to VNDIRECT Securities Corporation for providing the data used in this analysis.
 Special thanks to the team members (Bình, Hoàn, Việt, Khánh) for their contributions to different aspects of the project.
 Happy analyzing! 🚀
