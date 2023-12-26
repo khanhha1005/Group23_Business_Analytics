@@ -22,11 +22,15 @@ Amazon Stock Data
 INTEL Stock Data
 # Setup Instructions
 1. Clone this repository to your local machine:
+
 git clone (https://github.com/khanhha1005/Group23_Business_Analytics/tree/main)
-2. Install the required dependencies:
+
+3. Install the required dependencies:
+
 pip install -r requirements.txt
-3. Navigate to the relevant directory for the analysis you want to explore.
-4. Execute the scripts or notebooks using your preferred environment (Python, Jupyter, etc.).
+
+5. Navigate to the relevant directory for the analysis you want to explore.
+6. Execute the scripts or notebooks using your preferred environment (Python, Jupyter, etc.).
 
 # Contributing
 We welcome contributions to enhance and expand this project. If you're interested in contributing, please follow these guidelines:
