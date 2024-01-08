@@ -14,7 +14,7 @@ from aiohttp import ClientTimeout
 from typing import List, Dict
 
 from utils.file_manipulator import write_to_file
-from config import DATA_DIR
+from config import RAW_DATA_DIR
 
 
 class StockCrawler(object):
@@ -26,6 +26,23 @@ class StockCrawler(object):
         resolution: str = None, 
         symbol: str = None
     ) -> None:  
+        """
+        Initialize the crawler.
+        ----------------
+        Args:
+            data_dir: str
+                The folder to save the data.
+            start_date: int
+                The start date of the data to be crawled.
+            end_date: int
+                The end date of the data to be crawled.
+            resolution: str
+                The resolution of the data to be crawled.
+                Valid intervals: [1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo]
+            symbol: str
+                The symbol of the data to be crawled.
+
+        """
         self.data_dir = data_dir
         if not os.path.exists(self.data_dir):
             os.mkdir(self.data_dir)
@@ -35,13 +52,13 @@ class StockCrawler(object):
         self.interval = resolution
         self.symbol = symbol
         self.headers = {
-            # 'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             'User-Agent': (
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
                 '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0'
             )
         }
-        self._url = 'https://dchart-api.vndirect.com.vn/dchart/history'
+        self._url = f'https://query1.finance.yahoo.com/v8/finance/chart/{self.symbol}'
 
 
     def generate_parameters(self) -> List:
@@ -52,14 +69,14 @@ class StockCrawler(object):
         
         """
         list_params = []
-        second_in_a_month = 2592000
+        second_in_a_quater = 2592000 * 3
         for i in range(
-            self.start_date, self.end_date, second_in_a_month
+            self.start_date, self.end_date, second_in_a_quater
         ):
             list_params.append({
-                'from': i,
-                'to': i + second_in_a_month,
-                'resolution': self.interval,
+                'period1': i,
+                'period2': i + second_in_a_quater,
+                'interval': self.interval,
                 'symbol': self.symbol,
             })
 
@@ -73,7 +90,7 @@ class StockCrawler(object):
     ) -> Dict:
         """
         Make an asynchronous HTTP GET request to the specified Parameter.
-        API url -> https://dchart-api.vndirect.com.vn/dchart/history
+        API url -> https://query1.finance.yahoo.com/v8/finance/chart
         ----------------
         Args:
             parameter: Dict[str]
@@ -98,14 +115,17 @@ class StockCrawler(object):
             ) as response:
                 await asyncio.sleep(0.001)
                 json_data = await response.read()
+
             json_data = json.loads(json_data)
 
-        time_start = parameter['from']
-        time_end = parameter['to']
+        if json_data['chart']['error'] != None:
+            return None
+        
+        time_start = parameter['period1']
+        time_end = parameter['period2']
         file_name = os.path.join(
             save_foler, f"{time_start}_to_{time_end}.json"
         )
-
         write_to_file(json_data, file_name)
 
 
@@ -148,14 +168,14 @@ class StockCrawler(object):
 
 
 if __name__ == '__main__':
-    start_date = 1388067272
+    start_date = 1298067272
     end_date = int(datetime.now().timestamp())
 
     crawler = StockCrawler(
-        data_dir=DATA_DIR,
+        data_dir=RAW_DATA_DIR,
         start_date=start_date,
         end_date=end_date,
-        resolution='1D',
-        symbol='HPG'
+        resolution='60m',
+        symbol='AMZN'
     )
     asyncio.run(crawler.run())

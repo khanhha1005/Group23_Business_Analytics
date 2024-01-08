@@ -26,16 +26,20 @@ def process_json_file(file_path: str) -> List[Dict]:
     with open(file_path, 'r') as file:
         data = json.load(file)
 
+    # if data['chart']['error'] == 'null':
+    timestamp_column = data['chart']['result'][0]['timestamp']
+    ohlcv_data = data['chart']['result'][0]['indicators']['quote'][0]
+    # adjclose_data = data['chart']['result'][0]['indicators']['adjclose'][0]
     result = []
-    for i in range(len(data['t'])):
+    for i in range(len(timestamp_column)):
         res = {
-            'timestamp': data['t'][i],
-            'open': data['o'][i],
-            'close': data['c'][i],
-            'high': data['h'][i],
-            'low': data['l'][i],
-            'volume': data['v'][i],
-            'changes': (data['c'][i] - data['o'][i]) / data['o'][i],
+            'timestamp': timestamp_column[i],
+            'open': ohlcv_data['open'][i],
+            'close': ohlcv_data['close'][i],
+            'high': ohlcv_data['high'][i],
+            'low': ohlcv_data['low'][i],
+            'volume': ohlcv_data['volume'][i],
+            # 'adjclose': adjclose_data['adjclose'][i],
         }
         result.append(res)
     return result
@@ -58,9 +62,8 @@ def convert_to_parquet(data: List, raw_data_dir: str) -> None:
         data, 
         columns=[
             'timestamp', 'open', 
-            'high', 'low', 
-            'close', 'volume',
-            'changes'
+            'close', 'high', 
+            'low', 'volume',
         ]
     )
     df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
@@ -94,10 +97,14 @@ def format_data(raw_data_dir: str, save_dir: str) -> None:
             The folder to save the data.
 
     """
+    if not os.path.exists(save_dir):
+        os.mkdir(save_dir)
+        
     json_dir = Path(raw_data_dir)
 
     for json_file in json_dir.glob('*/*.json'):
         ohlcv_data = process_json_file(json_file)
+
         convert_to_parquet(ohlcv_data, save_dir)
     
     shutil.rmtree(raw_data_dir)

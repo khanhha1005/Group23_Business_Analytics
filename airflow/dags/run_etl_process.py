@@ -15,7 +15,7 @@ from datetime import timedelta
 import os
 import dotenv
 
-from config import DATA_DIR
+from config import RAW_DATA_DIR
 
 if not os.path.exists(DATA_DIR):
     os.mkdir(DATA_DIR)
